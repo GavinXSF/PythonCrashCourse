@@ -1,0 +1,1 @@
+This repo contains all the source codes of book "Python Crash Course 2nd Edition", and excercises done by me.
