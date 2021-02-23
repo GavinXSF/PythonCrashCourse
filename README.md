@@ -1,1 +1,4 @@
-This repo contains all the source codes of book "Python Crash Course 2nd Edition", and excercises done by me.
+This repo contains all materials I learn about python, including book pdf, source codes and excercises done by me.
+
+Book List:
+1. Python Crash Course 2nd Edition
