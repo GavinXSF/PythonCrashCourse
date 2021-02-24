@@ -1,7 +1,10 @@
+# In order to use relative path, you must change the current working directory to here.
+# Otherwise python cannot find the file "learning_python.txt"
+
 # Version 1
 with open("learning_python.txt") as file_object:
     content = file_object.read()
-print("Version 1, read the entire file:\n", content)
+print(f"Version 1, read the entire file:\n{content}")
 
 # Version 2
 with open("learning_python.txt") as file_object:
