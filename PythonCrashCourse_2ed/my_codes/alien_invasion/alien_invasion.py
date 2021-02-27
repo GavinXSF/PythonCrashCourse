@@ -29,8 +29,7 @@ class AlienInvasion:
         while True:
             self._check_events()
             self.ship.update()
-            # This will call update() on each bullet stored.
-            self.bullets.update()
+            self._update_bullets()
             self._update_screen()
 
     def _check_events(self):
@@ -55,8 +54,16 @@ class AlienInvasion:
 
     def _fire_bullet(self):
         # Create a new bullet and adds it to the bullets group.
-        new_bullet = Bullet(self)
-        self.bullets.add(new_bullet)
+        if len(self.bullets) < self.settings.bullet_allowed:
+            self.bullets.add(Bullet(self))
+
+    def _update_bullets(self):
+        """Manage bullets' position and existence."""
+        # This will call update() on each bullet stored.
+        self.bullets.update()
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
 
     def _check_keyup_events(self, event):
         if event.key == pygame.K_RIGHT:
