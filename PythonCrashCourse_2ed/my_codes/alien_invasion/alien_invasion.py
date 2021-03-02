@@ -26,11 +26,30 @@ class AlienInvasion:
         self.bullets = pygame.sprite.Group()
         # Create the fleet of aliens.
         self.aliens = pygame.sprite.Group()
-        self._create_aliens()
+        self._create_fleet()
 
-    def _create_aliens(self):
+    def _create_fleet(self):
         """Create the fleet of aliens."""
-        self.aliens.add(Alien(self))
+        alien = Alien(self)
+        alien_width, alien_height = alien.rect.size
+        available_space_x = self.screen.get_rect().width
+        number_aliens_x = available_space_x // (2 * alien_width)
+        available_space_y = (self.screen.get_rect().height -
+            self.ship.rect.height - 3 * alien_height)
+        number_rows = available_space_y // (2 * alien_height)
+        # Create the full fleet of aliens.
+        for row_number in range(number_rows):
+            for alien_number in range(number_aliens_x):
+                self._create_alien(alien_number, row_number)
+
+    def _create_alien(self, alien_number, row_number):
+        """Create an alien."""
+        alien = Alien(self)
+        alien_width, alien_height = alien.rect.size
+        alien.x = alien_width + 2 * alien_width * alien_number
+        alien.rect.x = alien.x
+        alien.rect.y = alien_height + 2 * alien_height * row_number
+        self.aliens.add(alien)
 
     def run_game(self):
         """Start the main loop fot the game."""
@@ -38,6 +57,7 @@ class AlienInvasion:
             self._check_events()
             self.ship.update()
             self._update_bullets()
+            self._update_aliens()
             self._update_screen()
 
     def _check_events(self):
@@ -57,6 +77,10 @@ class AlienInvasion:
         for bullet in self.bullets.copy():
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
+
+    def _update_aliens(self):
+        """Update the positions of all aliens in the fleet."""
+        self.aliens.update()
 
     def _update_screen(self):
         """"Update images on the screen, and flip to the new screen."""
