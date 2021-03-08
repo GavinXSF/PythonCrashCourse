@@ -46,6 +46,14 @@ class SidewaysShooter:
         for bullet in self.bullets.copy():
             if bullet.rect.left > self.screen.get_rect().right:
                 self.bullets.remove(bullet)
+        self._check_bullet_enemy_collision()
+
+    def _check_bullet_enemy_collision(self):
+        collisions = pygame.sprite.groupcollide(self.bullets,
+            self.enemies, True, True)
+        if not self.enemies:
+            self.enemies.empty()
+            self._create_enemies()
 
     def _update_enemies(self):
         for enemy in self.enemies:
