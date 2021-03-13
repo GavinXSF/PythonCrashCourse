@@ -10,4 +10,4 @@ def ack(m, n):
 
 if __name__ == '__main__':
     print(ack(3, 4))
-    print(ack(10, 20))
+    # print(ack(10, 20))
